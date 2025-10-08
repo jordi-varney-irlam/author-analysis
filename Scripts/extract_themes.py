@@ -1,8 +1,12 @@
 import json
 import argparse
+import os
 
 def themeExtraction(filename):
-    with open(filename, "r", encoding="utf-8") as f:
+    # Build the full path to the JSON file inside "Data (Json Files)"
+    filepath = os.path.join("Data (Json Files)", filename)
+
+    with open(filepath, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     subjects = {
@@ -16,8 +20,10 @@ def themeExtraction(filename):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Extract all unique themes/subjects from an author JSON file.")
-    parser.add_argument("filename", help="Path to the JSON file (in the same folder).")
+    parser = argparse.ArgumentParser(
+        description="Extract all unique themes/subjects from an author JSON file inside 'Data (Json Files)' folder."
+    )
+    parser.add_argument("filename", help="Name of the JSON file (inside 'Data (Json Files)')")
     args = parser.parse_args()
 
     themeExtraction(args.filename)
